@@ -71,6 +71,11 @@ public class DatabaseClass {
 		return c;
 	}
 
+	public boolean delRow(Long cRow) {
+		String where = Note_id + "=" + cRow;
+		return db.delete(DATABASE_TABLE, where, null) != 0;
+	}
+
 
 
 
