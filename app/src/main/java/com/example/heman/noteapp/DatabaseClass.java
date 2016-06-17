@@ -59,6 +59,14 @@ public class DatabaseClass {
 
 		return db.insert(DATABASE_TABLE, null, initialValues);
 	}
+
+	public boolean EditRow(Long cRow, String cData) {
+        String where = Note_id + "=" + cRow;
+        ContentValues newValues = new ContentValues();
+        newValues.put(Note_data,cData);
+        return db.update(DATABASE_TABLE, newValues, where, null) != 0;
+
+	}
 	
 
 

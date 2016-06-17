@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
                dialog.setContentView(R.layout.note_input_dailog);
                dialog.show();
 
-
                Button AddNote = (Button) dialog.findViewById(R.id.Add);
                final EditText Notes = (EditText) dialog.findViewById(R.id.userinput);
                AddNote.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
                        myDb.insertRow(Notes.getText().toString());
                        populateList();
                        dialog.cancel();
-
 
                    }
                });
@@ -108,7 +106,45 @@ public class MainActivity extends AppCompatActivity {
                         Udialog.cancel();
                     }
                 });
+
+                Button edit = (Button)Udialog.findViewById(R.id.edit);
+                edit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Udialog.cancel();
+                        Cursor cursor = (Cursor) myList.getItemAtPosition(position);
+                        final String cData = cursor.getString(1);
+                        final Long cRow = cursor.getLong(0);
+                        final Dialog edialog = new Dialog(MainActivity.this);
+                        //Toast.makeText(getApplicationContext(), cData, Toast.LENGTH_LONG).show();
+                       edialog.setContentView(R.layout.edit_layout);
+                        edialog.show();
+                        final EditText note_edit =(EditText)edialog.findViewById(R.id.note_edit);
+                        note_edit.setText(cData);
+
+                        Button edit_2 = (Button)edialog.findViewById(R.id.edit_btn);
+                        edit_2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                               String cData = note_edit.getText().toString();
+                                //Toast.makeText(getApplicationContext(), cData, Toast.LENGTH_LONG).show();
+                                myDb.EditRow(cRow, cData);
+                                populateList();
+                                edialog.cancel();
+
+                            }
+                        });
+
+
+
+
+
+                    }
+                });
+
+
             }
+
         });
 
 
