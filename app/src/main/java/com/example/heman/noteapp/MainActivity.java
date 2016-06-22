@@ -7,9 +7,11 @@ import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.location.SettingInjectorService;
 import android.media.audiofx.BassBoost;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.provider.Telephony;
 import android.support.design.widget.FloatingActionButton;
@@ -22,16 +24,25 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import static android.widget.Toast.*;
+import static android.widget.Toast.LENGTH_SHORT;
 
 public class MainActivity extends AppCompatActivity {
     DatabaseClass myDb;
     EditText noteDataText;
     Button addNoteButton;
     EditText user_input;
+    int REQUEST_CODE = 1;
+    Long cRow;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,15 +52,19 @@ public class MainActivity extends AppCompatActivity {
 
         openDB();
         addNoteButton = (Button)findViewById(R.id.addNote);
+         Button addImageButton = (Button)findViewById(R.id.add_img);
         populateList();
 
 
        addNoteButton.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
+
+
                final Dialog dialog = new Dialog(MainActivity.this);
                dialog.setContentView(R.layout.note_input_dailog);
                dialog.show();
+
 
                Button AddNote = (Button) dialog.findViewById(R.id.Add);
                final EditText Notes = (EditText) dialog.findViewById(R.id.userinput);
@@ -63,16 +78,31 @@ public class MainActivity extends AppCompatActivity {
                    }
                });
 
+               Button ADDimg = (Button) dialog.findViewById(R.id.add_img);
+               ImageView Image = (ImageView) dialog.findViewById(R.id.imageView);
+               ADDimg.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                       Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                       if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                       startActivityForResult(takePictureIntent, REQUEST_CODE);
+                       }
+                   }
+
+
+               });
+
+
            }
 
        });
-};
+}
+
 
 
 
     private void openDB(){
         myDb = new DatabaseClass(this); myDb.open();}
-
 
 
 
@@ -111,12 +141,14 @@ public class MainActivity extends AppCompatActivity {
                 edit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         Udialog.cancel();
                         Cursor cursor = (Cursor) myList.getItemAtPosition(position);
                         final String cData = cursor.getString(1);
-                        final Long cRow = cursor.getLong(0);
+                        cRow = cursor.getLong(0);
+
                         final Dialog edialog = new Dialog(MainActivity.this);
-                        //Toast.makeText(getApplicationContext(), cData, Toast.LENGTH_LONG).show();
+
                        edialog.setContentView(R.layout.edit_layout);
                         edialog.show();
                         final EditText note_edit =(EditText)edialog.findViewById(R.id.note_edit);
@@ -155,6 +187,29 @@ public class MainActivity extends AppCompatActivity {
 
    }
 
+    public void onActivityResult ( int requestcode, int resultcode, Intent data){
+        if (requestcode == REQUEST_CODE) ;
+        {
+            if (resultcode == RESULT_OK) {
+                Bundle bundle = new Bundle();
+                bundle = data.getExtras();
+                Bitmap CurBitMap;
+                CurBitMap = (Bitmap) bundle.get("data");
+
+
+                //Need to convert Bitmap to ByteArray
+
+
+
+
+
+
+            }
+
+        }
+
+
+    }
 
 
 

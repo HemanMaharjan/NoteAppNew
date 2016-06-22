@@ -21,8 +21,14 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add"
+        android:text="Add Text"
         android:layout_marginTop="40dp"
         android:id="@+id/Add" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Image"
+        android:id="@+id/add_img" />
 
 </LinearLayout>

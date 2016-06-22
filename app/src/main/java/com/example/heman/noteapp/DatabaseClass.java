@@ -4,8 +4,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
+import android.graphics.Bitmap;
+
+import java.sql.Blob;
 
 /**
  * Created by Heman on 05/06/2016.
@@ -16,6 +19,7 @@ public class DatabaseClass {
 	private static final String TAG = "DatabaseClass";
 	public static final String Note_id= "_id";
 	public static final String Note_data = "note";
+	public static final String Note_Image ="img";
 
 	
 	public static final String[] ALL_KEYS = new String[] {Note_id, Note_data};
@@ -28,7 +32,8 @@ public class DatabaseClass {
 	private static final String DATABASE_CREATE_SQL = 
 			"CREATE TABLE " + DATABASE_TABLE 
 			+ " (" + Note_id + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-			+ Note_data + " TEXT NOT NUll"
+			+ Note_data + " TEXT NOT NUll, "
+			+ Note_Image + "BLOB"
 			+ ");";
 	
 	private final Context context;
@@ -55,10 +60,18 @@ public class DatabaseClass {
 	public long insertRow(String task) {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(Note_data, task);
-				
-
 		return db.insert(DATABASE_TABLE, null, initialValues);
 	}
+
+
+	public boolean InsertImage(Long cRow, byte[] img) throws SQLiteException {
+
+	String where = Note_id + "=" +cRow;
+	ContentValues newValues = new ContentValues();
+		newValues.put(Note_Image, img);
+		return db.update(DATABASE_TABLE, newValues, where, null)!=0;
+	}
+
 
 	public boolean EditRow(Long cRow, String cData) {
         String where = Note_id + "=" + cRow;
