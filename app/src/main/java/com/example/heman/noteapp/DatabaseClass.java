@@ -22,19 +22,18 @@ public class DatabaseClass {
 	public static final String Note_Image ="img";
 
 	
-	public static final String[] ALL_KEYS = new String[] {Note_id, Note_data};
+	public static final String[] ALL_KEYS = new String[] {Note_id, Note_data, Note_Image};
 
 
 	public static final String DATABASE_NAME = "myDataBase";
 	public static final String DATABASE_TABLE = "Notedb";
-	public static final int DATABASE_VERSION = 2;
+	public static final int DATABASE_VERSION = 4;
 
 	private static final String DATABASE_CREATE_SQL = 
 			"CREATE TABLE " + DATABASE_TABLE 
 			+ " (" + Note_id + " INTEGER PRIMARY KEY AUTOINCREMENT, "
 			+ Note_data + " TEXT NOT NUll, "
-			+ Note_Image + "BLOB"
-			+ ");";
+			+ Note_Image + " BLOB );";
 	
 	private final Context context;
 	private DatabaseHelper myDBH;
@@ -57,15 +56,14 @@ public class DatabaseClass {
 		myDBH.close();
 	}
 
-	public long insertRow(String task) {
+	public long insertRow(String task, byte[] img) {
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(Note_data, task);
+		initialValues.put(Note_data, task);initialValues.put(Note_Image, img);
 		return db.insert(DATABASE_TABLE, null, initialValues);
 	}
 
 
 	public boolean InsertImage(Long cRow, byte[] img) throws SQLiteException {
-
 	String where = Note_id + "=" +cRow;
 	ContentValues newValues = new ContentValues();
 		newValues.put(Note_Image, img);
