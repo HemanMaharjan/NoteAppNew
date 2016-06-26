@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NoteApp</string>
+    <string name="app_name">Note App</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_listview">listview</string>
 </resources>

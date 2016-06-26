@@ -9,28 +9,31 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main" tools:context="com.example.heman.noteapp.MainActivity"
     android:clickable="false"
-    android:contextClickable="true"
-    android:theme="@style/AlertDialog.AppCompat.Light"
-    android:background="@color/abc_secondary_text_material_light">
+    >
+
+
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="+"
-        android:textSize="30sp"
+        android:layout_height="32dp"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:text="Add Note"
+        android:textSize="20sp"
         android:id="@+id/addNote"
         android:onClick="onClick_addNote"
         android:singleLine="true"
-        android:background="@android:color/holo_blue_light"
+        android:background="#2147ce"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentEnd="true" />
 
     <ListView
+        android:paddingTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listViewData"
+        android:layout_alignParentBottom="true"
         android:layout_below="@+id/addNote" />
 
 </RelativeLayout>

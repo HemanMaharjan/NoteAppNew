@@ -1,6 +1,8 @@
 package com.example.heman.noteapp;
 
+import org.junit.Before;
 import org.junit.Test;
+
 
 import static org.junit.Assert.*;
 
@@ -11,10 +13,6 @@ public class RowInsertTest {
 
     @Test
     public void testInsertRow() throws Exception {
-        String data = "Hello My Name is Heman";
-        
-
-
 
 
     }

@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <EditText
-        android:layout_width="362dp"
+        android:layout_width="match_parent"
         android:layout_height="74dp"
         android:id="@+id/note_edit"
-        android:background="@android:color/transparent"/>
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:hint="Type your notes...."
+        />
+
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Edit"
         android:id="@+id/edit_btn"
