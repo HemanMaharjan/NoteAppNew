@@ -16,6 +16,7 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.location.SettingInjectorService;
 import android.media.audiofx.BassBoost;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -45,6 +46,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 public class MainActivity extends AppCompatActivity {
     DatabaseClass myDb;
+    LocationClass mygps;
     EditText noteDataText;
     Button addNoteButton;
     EditText user_input;
@@ -134,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-
                 Button ADDimg = (Button) Udialog.findViewById(R.id.add_image);
                 ImageView Image = (ImageView) Udialog.findViewById(R.id.imageView);
                 ADDimg.setOnClickListener(new View.OnClickListener() {
@@ -147,7 +148,23 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-                Button edit = (Button)Udialog.findViewById(R.id.edit);
+
+                Button email = (Button) Udialog.findViewById(R.id.email);
+                email.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Cursor cursor = (Cursor)myList.getItemAtPosition(position);
+                        String msg = cursor.getString(1);
+                        emailfunc(msg);
+
+                    }
+                });
+
+
+
+
+
+                Button edit = (Button) Udialog.findViewById(R.id.edit);
                 edit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -159,16 +176,16 @@ public class MainActivity extends AppCompatActivity {
 
                         final Dialog edialog = new Dialog(MainActivity.this);
 
-                       edialog.setContentView(R.layout.edit_layout);
+                        edialog.setContentView(R.layout.edit_layout);
                         edialog.show();
-                        final EditText note_edit =(EditText)edialog.findViewById(R.id.note_edit);
+                        final EditText note_edit = (EditText) edialog.findViewById(R.id.note_edit);
                         note_edit.setText(cData);
 
-                        Button edit_2 = (Button)edialog.findViewById(R.id.edit_btn);
+                        Button edit_2 = (Button) edialog.findViewById(R.id.edit_btn);
                         edit_2.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                               String cData = note_edit.getText().toString();
+                                String cData = note_edit.getText().toString();
                                 //Toast.makeText(getApplicationContext(), cData, Toast.LENGTH_LONG).show();
                                 myDb.EditRow(cRow, cData);
                                 populateList();
@@ -181,8 +198,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
    }
 
+    Intent intent, EmailAppChooser;
+
+    public void emailfunc(String emailmsg)
+
+    {
+        intent = new Intent(Intent.ACTION_SEND);
+        intent.setData(Uri.parse("mailto:"));
+        String[] sendto={null};
+        intent.putExtra(Intent.EXTRA_EMAIL, sendto);
+        intent.putExtra(Intent.EXTRA_SUBJECT,"Email from my NoteApp");
+        intent.putExtra(Intent.EXTRA_TEXT,emailmsg);
+        intent.setType("message/rfc822");
+        EmailAppChooser = Intent.createChooser(intent, "Send Email");
+        startActivity(EmailAppChooser);
+    };
 
 
 

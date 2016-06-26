@@ -16,17 +16,16 @@
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_height="wrap_content"
         android:text="Add Note"
         android:textSize="20sp"
         android:id="@+id/addNote"
         android:onClick="onClick_addNote"
         android:singleLine="true"
-        android:background="#2147ce"
+        android:background="#e3e7f2"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignRight="@+id/listViewData"
+        android:layout_alignEnd="@+id/listViewData" />
 
     <ListView
         android:paddingTop="20dp"
@@ -35,5 +34,18 @@
         android:id="@+id/listViewData"
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/addNote" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="NoteApp"
+        android:id="@+id/textView"
+        android:layout_above="@+id/listViewData"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/addNote"
+        android:layout_toStartOf="@+id/addNote"
+        android:layout_alignParentTop="true" />
 
 </RelativeLayout>
